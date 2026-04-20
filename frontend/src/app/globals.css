@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-montserrat);
+}
+
+:root {
+  /* Default to dark mode as requested by brand guidelines */
+  --background: #09090b; /* Deep charcoal */
+  --foreground: #f8fafc; /* Crisp white */
+  --primary: #ea580c; /* Energetic Neon Orange */
+  --primary-foreground: #ffffff;
+  --card: #18181b; /* Slightly lighter charcoal */
+  --card-foreground: #f8fafc;
+  --border: #27272a;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Custom scrollbar for premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
