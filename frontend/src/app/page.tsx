@@ -55,6 +55,12 @@ export default function Home() {
                 Stock Up Now
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
+              <Link
+                href="/admin/dashboard"
+                className="border border-border px-8 py-4 font-bold uppercase tracking-wider text-sm hover:border-primary/70 hover:text-primary transition-all text-center"
+              >
+                Open Admin
+              </Link>
             </div>
           </motion.div>
         </div>

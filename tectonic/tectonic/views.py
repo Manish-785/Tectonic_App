@@ -13,8 +13,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from . import services
-from .models import Brand, Category, Product, Sport
+from .models import Brand, Category, Product, Sport, StoreInfo
 from .serializers import (
+    AdminBrandSerializer,
+    AdminCategorySerializer,
+    AdminProductUpsertSerializer,
+    AdminSportSerializer,
+    AdminStoreInfoSerializer,
     BrandSerializer,
     CategorySerializer,
     ProductDetailSerializer,
@@ -177,3 +182,85 @@ class StoreInfoView(APIView):
             )
         serializer = StoreInfoSerializer(store)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# ---------------------------------------------------------------------------
+# Admin dashboard endpoints
+# ---------------------------------------------------------------------------
+
+
+class AdminSportListCreateView(generics.ListCreateAPIView[Sport]):
+    serializer_class = AdminSportSerializer
+    queryset = Sport.objects.all().order_by("name")
+
+
+class AdminBrandListCreateView(generics.ListCreateAPIView[Brand]):
+    serializer_class = AdminBrandSerializer
+    queryset = Brand.objects.all().order_by("name")
+
+
+class AdminCategoryListCreateView(generics.ListCreateAPIView[Category]):
+    serializer_class = AdminCategorySerializer
+    queryset = Category.objects.all().prefetch_related("sports").order_by("name")
+
+
+class AdminProductListCreateView(APIView):
+    def get(self, request):
+        products = Product.objects.all().select_related("brand", "category").prefetch_related(
+            "sports", "images", "variants"
+        )
+        serializer = ProductDetailSerializer(products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = AdminProductUpsertSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        product = serializer.save()
+        return Response(
+            ProductDetailSerializer(product).data,
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class AdminProductDetailView(APIView):
+    def put(self, request, pk: int):
+        product = Product.objects.get(pk=pk)
+        serializer = AdminProductUpsertSerializer(product, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        product = serializer.save()
+        return Response(ProductDetailSerializer(product).data, status=status.HTTP_200_OK)
+
+
+class AdminStoreInfoView(APIView):
+    def get(self, request):
+        store = StoreInfo.objects.order_by("-updated_at").first()
+        if store is None:
+            return Response(
+                {
+                    "id": None,
+                    "store_name": "",
+                    "tagline": "",
+                    "address_line1": "",
+                    "address_line2": "",
+                    "city": "",
+                    "state": "",
+                    "pincode": "",
+                    "google_maps_url": "",
+                    "phone_primary": "",
+                    "phone_secondary": "",
+                    "whatsapp_number": "",
+                    "email": "",
+                    "call_to_order_instructions": "",
+                    "opening_hours": "",
+                    "is_active": True,
+                },
+                status=status.HTTP_200_OK,
+            )
+        return Response(AdminStoreInfoSerializer(store).data, status=status.HTTP_200_OK)
+
+    def put(self, request):
+        store = StoreInfo.objects.order_by("-updated_at").first()
+        serializer = AdminStoreInfoSerializer(instance=store, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        saved = serializer.save()
+        return Response(AdminStoreInfoSerializer(saved).data, status=status.HTTP_200_OK)

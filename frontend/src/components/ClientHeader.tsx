@@ -22,6 +22,7 @@ export function ClientHeader() {
         <nav className="hidden md:flex items-center gap-8 font-medium text-sm">
           <Link href="/catalogue" className="hover:text-primary transition-colors">The Arsenal</Link>
           <Link href="/catalogue?category=protein" className="hover:text-primary transition-colors">Supplements</Link>
+          <Link href="/admin/dashboard" className="hover:text-primary transition-colors">Admin</Link>
         </nav>
 
         <div className="flex items-center gap-4">

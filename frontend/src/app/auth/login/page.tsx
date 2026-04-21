@@ -3,19 +3,19 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Dumbbell } from "lucide-react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      router.push('/dashboard');
+      router.push("/catalogue");
     }, 1000);
   };
 

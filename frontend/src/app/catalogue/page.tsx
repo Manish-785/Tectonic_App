@@ -2,25 +2,42 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { api, ProductList } from "@/lib/api";
+import { api, ProductList, ProductQueryParams } from "@/lib/api";
 import Link from "next/link";
 import { Dumbbell, ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useSearchParams } from "next/navigation";
 
 export default function CataloguePage() {
   const [products, setProducts] = useState<ProductList[]>([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
+  const searchParams = useSearchParams();
+  const queryString = searchParams.toString();
 
   useEffect(() => {
     async function loadCatalogue() {
       setLoading(true);
-      const data = await api.getProducts();
+      const paramsFromUrl = new URLSearchParams(queryString);
+      const params: ProductQueryParams = {
+        category: paramsFromUrl.get("category") || undefined,
+        brand: paramsFromUrl.get("brand") || undefined,
+        sport: paramsFromUrl.get("sport") || undefined,
+        search: paramsFromUrl.get("search") || undefined,
+        in_stock: paramsFromUrl.get("in_stock") || undefined,
+      };
+      const data = await api.getProducts(params);
       setProducts(data);
       setLoading(false);
     }
     loadCatalogue();
-  }, []);
+  }, [queryString]);
+
+  const activeFilter =
+    searchParams.get("category") ||
+    searchParams.get("brand") ||
+    searchParams.get("sport") ||
+    searchParams.get("search");
 
   return (
     <div className="container mx-auto px-4 py-20 min-h-screen">
@@ -30,12 +47,26 @@ export default function CataloguePage() {
         </div>
         <h1 className="text-4xl md:text-6xl font-display font-bold uppercase tracking-tight">The <span className="text-primary italic">Arsenal</span></h1>
         <p className="mt-4 text-foreground/70 max-w-2xl text-lg">Browse our complete collection of supplements, protective gear, and equipment. Stock up for your hostel games.</p>
+        {activeFilter && (
+          <p className="mt-3 text-sm uppercase tracking-[0.2em] text-primary">
+            Filter active: {activeFilter}
+          </p>
+        )}
       </div>
 
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20 text-primary">
           <Dumbbell className="h-16 w-16 animate-pulse mb-4" />
           <p className="font-display uppercase tracking-widest font-bold">Loading Arsenal...</p>
+        </div>
+      ) : products.length === 0 ? (
+        <div className="border border-border bg-card/60 px-6 py-12 text-center">
+          <p className="font-display text-2xl font-bold uppercase tracking-wider">
+            No Products Matched
+          </p>
+          <p className="mt-3 text-foreground/70">
+            Try a different filter or seed the backend with the MVP catalogue.
+          </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">

@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { api, ProductDetail } from "@/lib/api";
 import { motion } from "framer-motion";
 import { useCart } from "@/context/CartContext";
-import { ShoppingCart, ArrowLeft, Loader2, ShieldCheck, Truck } from "lucide-react";
+import { ShoppingCart, ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 
 export default function ProductDetailPage() {
@@ -23,7 +23,7 @@ export default function ProductDetailPage() {
       try {
         const data = await api.getProduct(slug as string);
         setProduct(data);
-      } catch (err) {
+      } catch {
         setError(true);
       } finally {
         setLoading(false);
@@ -54,7 +54,7 @@ export default function ProductDetailPage() {
   }
 
   // Use the active variant data (assumes backend handles the lowest price properly)
-  const variant = product.variants.find(v => v.is_active) || product.variants[0];
+  const variant = product.variants.find((v) => v.is_active) || product.variants[0];
   const inStock = variant?.in_stock ?? false;
   const price = variant?.selling_price || "0";
   const mrp = variant?.mrp || "0";

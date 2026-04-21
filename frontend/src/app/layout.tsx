@@ -29,7 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${montserrat.variable} antialiased min-h-screen flex flex-col`}>
+      <body
+        suppressHydrationWarning
+        className={`${inter.variable} ${montserrat.variable} antialiased min-h-screen flex flex-col`}
+      >
         <CartProvider>
           <ClientHeader />
           <CartDrawer />

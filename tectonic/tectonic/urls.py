@@ -8,6 +8,12 @@ All catalogue API routes.  Include this module in your project's root urls.py:
 from django.urls import path
 
 from .views import (
+    AdminBrandListCreateView,
+    AdminCategoryListCreateView,
+    AdminProductDetailView,
+    AdminProductListCreateView,
+    AdminSportListCreateView,
+    AdminStoreInfoView,
     BrandListView,
     CategoryListView,
     FeaturedProductListView,
@@ -20,6 +26,25 @@ from .views import (
 app_name = "catalogue"
 
 urlpatterns = [
+    # ── Admin dashboard ───────────────────────────────────────────────────
+    path("admin-dashboard/store/", AdminStoreInfoView.as_view(), name="admin-store"),
+    path("admin-dashboard/sports/", AdminSportListCreateView.as_view(), name="admin-sport-list"),
+    path("admin-dashboard/brands/", AdminBrandListCreateView.as_view(), name="admin-brand-list"),
+    path(
+        "admin-dashboard/categories/",
+        AdminCategoryListCreateView.as_view(),
+        name="admin-category-list",
+    ),
+    path(
+        "admin-dashboard/products/",
+        AdminProductListCreateView.as_view(),
+        name="admin-product-list",
+    ),
+    path(
+        "admin-dashboard/products/<int:pk>/",
+        AdminProductDetailView.as_view(),
+        name="admin-product-detail",
+    ),
     # ── Store ────────────────────────────────────────────────────────────
     path("store/", StoreInfoView.as_view(), name="store-info"),
     # ── Lookup tables ────────────────────────────────────────────────────

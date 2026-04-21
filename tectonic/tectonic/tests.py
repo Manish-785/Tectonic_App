@@ -400,3 +400,69 @@ class ProductListAPITest(TestCase):
         response = cast(Any, self.client.get(reverse("catalogue:product-list")))
         for key in ("count", "next", "previous", "results"):
             self.assertIn(key, response.data)
+
+
+class AdminDashboardAPITest(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.sport = make_sport("Gym Fitness")
+        self.brand = make_brand("Nike")
+        self.category = make_category("Footwear")
+        self.category.sports.add(self.sport)
+
+    def test_store_info_can_be_created_via_dashboard_api(self):
+        response = cast(
+            Any,
+            self.client.put(
+                reverse("catalogue:admin-store"),
+                {
+                    "store_name": "Tectonic Fitness and Sports",
+                    "tagline": "Built for campus athletes",
+                    "address_line1": "Main Gate",
+                    "address_line2": "Powai",
+                    "city": "Mumbai",
+                    "state": "Maharashtra",
+                    "pincode": "400076",
+                    "google_maps_url": "",
+                    "phone_primary": "9876543210",
+                    "phone_secondary": "",
+                    "whatsapp_number": "",
+                    "email": "hello@example.com",
+                    "call_to_order_instructions": "Call us first.",
+                    "opening_hours": "9 AM - 9 PM",
+                    "is_active": True,
+                },
+                format="json",
+            ),
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(StoreInfo.objects.count(), 1)
+
+    def test_product_can_be_created_via_dashboard_api(self):
+        response = cast(
+            Any,
+            self.client.post(
+                reverse("catalogue:admin-product-list"),
+                {
+                    "name": "Campus Trainer",
+                    "description": "Daily training shoe",
+                    "brand_id": self.brand.id,
+                    "category_id": self.category.id,
+                    "sport_ids": [self.sport.id],
+                    "thumbnail_url": "https://example.com/shoe.jpg",
+                    "is_active": True,
+                    "is_featured": True,
+                    "sku": "SHOE-001",
+                    "size": "9",
+                    "colour": "Black",
+                    "mrp": "3999.00",
+                    "selling_price": "3499.00",
+                    "in_stock": True,
+                },
+                format="json",
+            ),
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Product.objects.count(), 1)
+        self.assertEqual(ProductVariant.objects.count(), 1)
+        self.assertEqual(ProductImage.objects.count(), 1)

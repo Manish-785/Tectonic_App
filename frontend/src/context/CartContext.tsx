@@ -29,8 +29,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     if (stored) {
       try {
         setCartItems(JSON.parse(stored));
-      } catch (e) {
-         // ignore
+      } catch {
+        // Ignore invalid persisted cart data and start fresh.
       }
     }
   }, []);
