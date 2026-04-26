@@ -3,9 +3,7 @@ import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { Dumbbell } from "lucide-react";
-import { CartProvider } from "@/context/CartContext";
 import { ClientHeader } from "@/components/ClientHeader";
-import { CartDrawer } from "@/components/CartDrawer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -33,11 +31,9 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${inter.variable} ${montserrat.variable} antialiased min-h-screen flex flex-col`}
       >
-        <CartProvider>
-          <ClientHeader />
-          <CartDrawer />
-          
-          <main className="flex-1 flex flex-col">
+        <ClientHeader />
+        
+        <main className="flex-1 flex flex-col">
             {children}
           </main>
 
@@ -82,7 +78,6 @@ export default function RootLayout({
               </div>
             </div>
           </footer>
-        </CartProvider>
       </body>
     </html>
   );

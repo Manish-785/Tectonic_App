@@ -1,15 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Zap, Target, Shield, Dumbbell, ShoppingCart } from "lucide-react";
+import { ArrowRight, Zap, Target, Shield, Dumbbell } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api, ProductList } from "@/lib/api";
-import { useCart } from "@/context/CartContext";
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<ProductList[]>([]);
-  const { addToCart } = useCart();
 
   useEffect(() => {
     async function fetchData() {
@@ -23,11 +21,11 @@ export default function Home() {
     <>
       <section className="relative h-[90vh] min-h-[600px] flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-background/90 z-10" />
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-black">
           <img 
-            src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=2000"
+            src="/images/banner1.png"
             alt="Intense Workout at IITB Gym" 
-            className="w-full h-full object-cover opacity-30 grayscale"
+            className="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
           />
         </div>
 
@@ -54,12 +52,6 @@ export default function Home() {
               >
                 Stock Up Now
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/admin/dashboard"
-                className="border border-border px-8 py-4 font-bold uppercase tracking-wider text-sm hover:border-primary/70 hover:text-primary transition-all text-center"
-              >
-                Open Admin
               </Link>
             </div>
           </motion.div>
@@ -100,7 +92,7 @@ export default function Home() {
           <div className="flex justify-between items-end mb-12">
             <div>
               <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight">Prime <span className="text-primary italic">Arsenal</span></h2>
-              <p className="mt-4 text-foreground/60 max-w-xl">Top-rated protein powders, supplements, and heavy-duty gear built for IITB's elite athletes.</p>
+              <p className="mt-4 text-foreground/60 max-w-xl">Top-rated protein powders, supplements, and heavy-duty gear built for IITB&apos;s elite athletes.</p>
             </div>
             <Link href="/catalogue" className="hidden md:flex items-center gap-2 text-primary font-bold hover:underline uppercase text-sm tracking-wider">
               View Entire Arsenal <ArrowRight className="h-4 w-4" />
@@ -135,16 +127,27 @@ export default function Home() {
                     {product.name}
                   </h3>
                   <div className="mt-auto">
-                    <span className="text-xl font-bold font-mono block mb-4">
-                      ₹{product.min_price?.toLocaleString() || '---'}
-                    </span>
-                    <button 
-                      onClick={() => addToCart(product)}
+                    {product.min_price && (
+                      <div className="flex flex-col mb-4">
+                        <span className="text-sm text-foreground/50 line-through font-mono">
+                          Amazon: ₹{Math.round(product.min_price * 1.15).toLocaleString()}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xl font-bold font-mono">
+                            ₹{product.min_price.toLocaleString()}
+                          </span>
+                          <span className="text-xs font-bold text-primary border border-primary px-1">
+                            IITB: ₹{Math.round(product.min_price * 0.95).toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                    <a 
+                      href="tel:9769587317"
                       className="w-full h-12 bg-background border border-border flex items-center justify-center gap-2 hover:bg-primary hover:text-black hover:border-primary transition-all rounded-none font-bold uppercase text-sm group/btn"
                     >
-                      <ShoppingCart className="h-4 w-4" />
-                      Add to Cart
-                    </button>
+                      Call To Order
+                    </a>
                   </div>
                 </div>
               </motion.div>

@@ -4,14 +4,12 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { api, ProductList, ProductQueryParams } from "@/lib/api";
 import Link from "next/link";
-import { Dumbbell, ShoppingCart } from "lucide-react";
-import { useCart } from "@/context/CartContext";
+import { Dumbbell } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
 export default function CataloguePage() {
   const [products, setProducts] = useState<ProductList[]>([]);
   const [loading, setLoading] = useState(true);
-  const { addToCart } = useCart();
   const searchParams = useSearchParams();
   const queryString = searchParams.toString();
 
@@ -99,20 +97,31 @@ export default function CataloguePage() {
                   {product.name}
                 </h3>
                 <div className="mt-auto">
-                  <span className="text-xl font-bold font-mono text-foreground block mb-4">
-                    ₹{product.min_price?.toLocaleString() || '---'}
-                  </span>
+                  {product.min_price && (
+                    <div className="flex flex-col mb-4">
+                      <span className="text-sm text-foreground/50 line-through font-mono">
+                        Amazon: ₹{Math.round(product.min_price * 1.15).toLocaleString()}
+                      </span>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="text-xl font-bold font-mono">
+                          ₹{product.min_price.toLocaleString()}
+                        </span>
+                        <span className="text-xs font-bold text-primary border border-primary px-1">
+                          IITB: ₹{Math.round(product.min_price * 0.95).toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                   <div className="flex gap-2">
-                    <button 
-                      onClick={() => addToCart(product)}
-                      disabled={!product.in_stock}
-                      className="flex-1 bg-primary text-black hover:bg-primary/90 border border-primary py-2 font-bold uppercase text-xs transition-colors flex items-center justify-center gap-1 disabled:opacity-50"
+                    <a 
+                      href="tel:9769587317"
+                      className="flex-1 bg-primary text-black hover:bg-primary/90 border border-primary py-2 font-bold uppercase text-xs transition-colors flex items-center justify-center gap-1"
                     >
-                      <ShoppingCart className="h-4 w-4" /> Add
-                    </button>
+                      Call To Order
+                    </a>
                     <Link 
                        href={`/catalogue/${product.slug}`}
-                       className="bg-transparent text-foreground hover:bg-border border border-border px-4 py-2 font-bold uppercase text-xs transition-colors"
+                       className="bg-transparent text-foreground hover:bg-border border border-border px-4 py-2 font-bold uppercase text-xs transition-colors flex items-center justify-center"
                     >
                       View
                     </Link>

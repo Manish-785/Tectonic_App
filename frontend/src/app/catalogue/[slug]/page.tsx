@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { api, ProductDetail } from "@/lib/api";
 import { motion } from "framer-motion";
-import { useCart } from "@/context/CartContext";
-import { ShoppingCart, ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, PhoneCall } from "lucide-react";
 import Link from "next/link";
 
 export default function ProductDetailPage() {
   const { slug } = useParams();
   const router = useRouter();
-  const { addToCart } = useCart();
   
   const [product, setProduct] = useState<ProductDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -98,17 +96,21 @@ export default function ProductDetailPage() {
             {product.name}
           </h1>
 
-          <div className="flex items-end gap-4 mb-8">
-            <span className="text-4xl font-mono font-bold">₹{price}</span>
-            {parseFloat(mrp) > parseFloat(price) && (
-              <span className="text-foreground/40 line-through font-mono text-xl mb-1">
-                ₹{mrp}
-              </span>
-            )}
-            {variant?.discount_percent && (
-              <span className="text-primary font-bold uppercase tracking-widest text-xs border border-primary px-2 py-1 mb-2">
-                -{variant.discount_percent}%
-              </span>
+          <div className="flex flex-col gap-2 mb-8">
+            {parseFloat(mrp) > parseFloat(price) || parseFloat(price) > 0 ? (
+              <>
+                <div className="text-foreground/50 line-through font-mono text-xl mb-1">
+                  Amazon Price: ₹{Math.round(parseFloat(price) * 1.15).toLocaleString()}
+                </div>
+                <div className="flex items-end gap-4">
+                  <span className="text-4xl font-mono font-bold">₹{price}</span>
+                  <span className="text-primary font-bold uppercase tracking-widest text-sm border border-primary px-3 py-1 mb-1">
+                    IITB Exclusive: ₹{Math.round(parseFloat(price) * 0.95).toLocaleString()}
+                  </span>
+                </div>
+              </>
+            ) : (
+              <span className="text-4xl font-mono font-bold">₹{price}</span>
             )}
           </div>
 
@@ -132,26 +134,14 @@ export default function ProductDetailPage() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-auto">
-            <button 
-              disabled={!inStock}
-              onClick={() => addToCart({
-                id: product.id,
-                name: product.name,
-                slug: product.slug,
-                brand: product.brand,
-                category: product.category,
-                sports: product.sports,
-                thumbnail_url: displayImage,
-                min_price: parseFloat(price),
-                in_stock: inStock,
-                is_featured: product.is_featured
-              })}
-              className="flex-1 h-14 bg-primary text-black flex items-center justify-center gap-3 font-bold uppercase tracking-widest hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed group border border-primary relative overflow-hidden"
+            <a 
+              href="tel:9769587317"
+              className="flex-1 h-14 bg-primary text-black flex items-center justify-center gap-3 font-bold uppercase tracking-widest hover:bg-primary/90 transition-all group border border-primary relative overflow-hidden"
             >
-              <ShoppingCart className="h-5 w-5 relative z-10" /> 
-              <span className="relative z-10">{inStock ? "Requisition Gear" : "Unavailable"}</span>
+              <PhoneCall className="h-5 w-5 relative z-10" /> 
+              <span className="relative z-10">Call To Order: 97695 87317</span>
               <div className="absolute inset-0 w-0 bg-white/20 group-hover:w-full transition-all duration-300 ease-out z-0"></div>
-            </button>
+            </a>
           </div>
 
 
