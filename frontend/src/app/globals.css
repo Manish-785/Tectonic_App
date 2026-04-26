@@ -13,14 +13,14 @@
 }
 
 :root {
-  /* High-contrast Nike/Adidas inspired performance theme */
-  --background: #000000; /* Pitch Black */
-  --foreground: #ffffff; /* Stark White */
-  --primary: #ccff00; /* Volt Green */
-  --primary-foreground: #000000; /* Black on Volt */
-  --card: #0a0a0a; /* Just off-black */
-  --card-foreground: #ffffff;
-  --border: #1f1f1f;
+  /* Tectonic Fitness — Signature Red & Black */
+  --background: #0a0a0a; /* Deep Black */
+  --foreground: #f5f5f5; /* Soft White */
+  --primary: #e31837; /* Tectonic Red */
+  --primary-foreground: #ffffff; /* White on Red */
+  --card: #111111; /* Dark Card */
+  --card-foreground: #f5f5f5;
+  --border: #222222;
 }
 
 body {

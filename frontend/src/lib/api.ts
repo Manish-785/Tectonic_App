@@ -40,6 +40,7 @@ export interface ProductList {
   sports: Sport[];
   thumbnail_url: string;
   min_price: number | null;
+  amazon_price: number | null;
   in_stock: boolean;
   is_featured: boolean;
 }
@@ -172,186 +173,45 @@ function filterMockProducts(params?: ProductQueryParams): ProductList[] {
   });
 }
 
-// Fallback Mock Data
+// Fallback Mock Data — curated from Tectonic Fitness & Sports catalogue
 export const MOCK_PRODUCTS: ProductList[] = [
-  {
-    id: 1,
-    name: "Whey Protein Isolate - 2kg",
-    slug: "whey-protein-isolate-2kg",
-    brand: { id: 1, name: "MuscleTech", slug: "muscletech", logo_url: "" },
-    category: { id: 1, name: "Protein", slug: "protein", sports: [] },
-    sports: [{ id: 1, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }],
-    thumbnail_url: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&q=80&w=800",
-    min_price: 4500.00,
-    in_stock: true,
-    is_featured: true,
-  },
-  {
-    id: 2,
-    name: "Pre-Workout Explosive Energy",
-    slug: "pre-workout-explosive",
-    brand: { id: 2, name: "Optimum Nutrition", slug: "optimum-nutrition", logo_url: "" },
-    category: { id: 1, name: "Protein", slug: "protein", sports: [] },
-    sports: [{ id: 1, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }],
-    thumbnail_url: "https://images.unsplash.com/photo-1554629947-334ff61d112c?auto=format&fit=crop&q=80&w=800",
-    min_price: 2200.00,
-    in_stock: true,
-    is_featured: true,
-  },
-  {
-    id: 3,
-    name: "Micronized Creatine",
-    slug: "micronized-creatine",
-    brand: { id: 2, name: "Optimum Nutrition", slug: "optimum-nutrition", logo_url: "" },
-    category: { id: 1, name: "Protein", slug: "protein", sports: [] },
-    sports: [{ id: 1, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }],
-    thumbnail_url: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800",
-    min_price: 1299.00,
-    in_stock: true,
-    is_featured: false,
-  },
-  {
-    id: 4,
-    name: "Recovery Protein Bar Box",
-    slug: "recovery-protein-bar-box",
-    brand: { id: 2, name: "Optimum Nutrition", slug: "optimum-nutrition", logo_url: "" },
-    category: { id: 1, name: "Protein", slug: "protein", sports: [] },
-    sports: [
-      { id: 1, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" },
-      { id: 3, name: "Cricket", slug: "cricket", icon_url: "" },
-    ],
-    thumbnail_url: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&q=80&w=800",
-    min_price: 1899.00,
-    in_stock: true,
-    is_featured: false,
-  },
-  {
-    id: 5,
-    name: "Pro-Grip Lifting Gloves",
-    slug: "pro-grip-lifting-gloves",
-    brand: { id: 3, name: "Rogue Fitness", slug: "rogue", logo_url: "" },
-    category: { id: 2, name: "Gear", slug: "gear", sports: [] },
-    sports: [{ id: 1, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }],
-    thumbnail_url: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=800",
-    min_price: 850.00,
-    in_stock: true,
-    is_featured: true,
-  },
-  {
-    id: 6,
-    name: "Resistance Band Set",
-    slug: "resistance-band-set",
-    brand: { id: 3, name: "Rogue Fitness", slug: "rogue", logo_url: "" },
-    category: { id: 2, name: "Gear", slug: "gear", sports: [] },
-    sports: [
-      { id: 1, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" },
-      { id: 2, name: "Football", slug: "football", icon_url: "" },
-    ],
-    thumbnail_url: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=800",
-    min_price: 1499.00,
-    in_stock: true,
-    is_featured: false,
-  },
-  {
-    id: 7,
-    name: "Shaker Bottle Pro",
-    slug: "shaker-bottle-pro",
-    brand: { id: 3, name: "Rogue Fitness", slug: "rogue", logo_url: "" },
-    category: { id: 2, name: "Gear", slug: "gear", sports: [] },
-    sports: [{ id: 1, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }],
-    thumbnail_url: "https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?auto=format&fit=crop&q=80&w=800",
-    min_price: 449.00,
-    in_stock: true,
-    is_featured: false,
-  },
-  {
-    id: 8,
-    name: "Cricket Match Ball",
-    slug: "cricket-match-ball",
-    brand: { id: 4, name: "Nike", slug: "nike", logo_url: "" },
-    category: { id: 2, name: "Gear", slug: "gear", sports: [] },
-    sports: [{ id: 3, name: "Cricket", slug: "cricket", icon_url: "" }],
-    thumbnail_url: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=800",
-    min_price: 599.00,
-    in_stock: true,
-    is_featured: false,
-  },
-  {
-    id: 9,
-    name: "Cricket Batting Gloves",
-    slug: "cricket-batting-gloves",
-    brand: { id: 4, name: "Nike", slug: "nike", logo_url: "" },
-    category: { id: 2, name: "Gear", slug: "gear", sports: [] },
-    sports: [{ id: 3, name: "Cricket", slug: "cricket", icon_url: "" }],
-    thumbnail_url: "https://images.unsplash.com/photo-1526676037777-05a232554f77?auto=format&fit=crop&q=80&w=800",
-    min_price: 1549.00,
-    in_stock: true,
-    is_featured: false,
-  },
-  {
-    id: 10,
-    name: "Astroturf Football Boots",
-    slug: "astroturf-football-boots",
-    brand: { id: 4, name: "Nike", slug: "nike", logo_url: "" },
-    category: { id: 3, name: "Footwear", slug: "footwear", sports: [] },
-    sports: [{ id: 2, name: "Football", slug: "football", icon_url: "" }],
-    thumbnail_url: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800",
-    min_price: 6500.0,
-    in_stock: true,
-    is_featured: false,
-  },
-  {
-    id: 11,
-    name: "Training Running Shoes",
-    slug: "training-running-shoes",
-    brand: { id: 4, name: "Nike", slug: "nike", logo_url: "" },
-    category: { id: 3, name: "Footwear", slug: "footwear", sports: [] },
-    sports: [
-      { id: 1, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" },
-      { id: 2, name: "Football", slug: "football", icon_url: "" },
-    ],
-    thumbnail_url: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800",
-    min_price: 5599.0,
-    in_stock: true,
-    is_featured: true,
-  },
-  {
-    id: 12,
-    name: "Arcsaber Badminton Racket",
-    slug: "arcsaber-badminton-racket",
-    brand: { id: 5, name: "Yonex", slug: "yonex", logo_url: "" },
-    category: { id: 2, name: "Gear", slug: "gear", sports: [] },
-    sports: [{ id: 4, name: "Badminton", slug: "badminton", icon_url: "" }],
-    thumbnail_url: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&q=80&w=800",
-    min_price: 5999.0,
-    in_stock: true,
-    is_featured: false,
-  },
-  {
-    id: 13,
-    name: "Feather Shuttle Tube",
-    slug: "feather-shuttle-tube",
-    brand: { id: 5, name: "Yonex", slug: "yonex", logo_url: "" },
-    category: { id: 2, name: "Gear", slug: "gear", sports: [] },
-    sports: [{ id: 4, name: "Badminton", slug: "badminton", icon_url: "" }],
-    thumbnail_url: "https://images.unsplash.com/photo-1613918431703-aa508a48bfc4?auto=format&fit=crop&q=80&w=800",
-    min_price: 1499.0,
-    in_stock: true,
-    is_featured: false,
-  },
-  {
-    id: 14,
-    name: "Court Badminton Shoes",
-    slug: "court-badminton-shoes",
-    brand: { id: 5, name: "Yonex", slug: "yonex", logo_url: "" },
-    category: { id: 3, name: "Footwear", slug: "footwear", sports: [] },
-    sports: [{ id: 4, name: "Badminton", slug: "badminton", icon_url: "" }],
-    thumbnail_url: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&q=80&w=800",
-    min_price: 5299.0,
-    in_stock: true,
-    is_featured: true,
-  },
+  // ── Cricket ──
+  { id: 1, name: "SG RSD Spark Kashmir Willow Bat", slug: "sg-rsd-spark-bat", brand: { id: 1, name: "SG", slug: "sg", logo_url: "" }, category: { id: 1, name: "Cricket", slug: "cricket", sports: [] }, sports: [{ id: 1, name: "Cricket", slug: "cricket", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=400&h=400&fit=crop", min_price: 1249, amazon_price: 1349, in_stock: true, is_featured: true },
+  { id: 2, name: "SG Club Leather Cricket Ball", slug: "sg-club-leather-ball", brand: { id: 1, name: "SG", slug: "sg", logo_url: "" }, category: { id: 1, name: "Cricket", slug: "cricket", sports: [] }, sports: [{ id: 1, name: "Cricket", slug: "cricket", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&h=400&fit=crop", min_price: 499, amazon_price: 575, in_stock: true, is_featured: false },
+  { id: 3, name: "DSC Intense Attitude Batting Gloves", slug: "dsc-batting-gloves", brand: { id: 2, name: "DSC", slug: "dsc", logo_url: "" }, category: { id: 1, name: "Cricket", slug: "cricket", sports: [] }, sports: [{ id: 1, name: "Cricket", slug: "cricket", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1526676037777-05a232554f77?w=400&h=400&fit=crop", min_price: 749, amazon_price: 849, in_stock: true, is_featured: false },
+  { id: 4, name: "Shrey Classic Steel Cricket Helmet", slug: "shrey-cricket-helmet", brand: { id: 3, name: "Shrey", slug: "shrey", logo_url: "" }, category: { id: 1, name: "Cricket", slug: "cricket", sports: [] }, sports: [{ id: 1, name: "Cricket", slug: "cricket", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=400&h=400&fit=crop", min_price: 1399, amazon_price: 1499, in_stock: true, is_featured: false },
+
+  // ── Badminton ──
+  { id: 5, name: "Yonex GR 303 Badminton Racquet", slug: "yonex-gr-303", brand: { id: 4, name: "Yonex", slug: "yonex", logo_url: "" }, category: { id: 2, name: "Badminton", slug: "badminton", sports: [] }, sports: [{ id: 2, name: "Badminton", slug: "badminton", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=400&h=400&fit=crop", min_price: 399, amazon_price: 499, in_stock: true, is_featured: true },
+  { id: 6, name: "Yonex Mavis 350 Shuttlecock (6 pcs)", slug: "yonex-mavis-350", brand: { id: 4, name: "Yonex", slug: "yonex", logo_url: "" }, category: { id: 2, name: "Badminton", slug: "badminton", sports: [] }, sports: [{ id: 2, name: "Badminton", slug: "badminton", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1613918431703-aa508a48bfc4?w=400&h=400&fit=crop", min_price: 699, amazon_price: 799, in_stock: true, is_featured: false },
+
+  // ── Football ──
+  { id: 7, name: "Nivia Ashtang Football Size 5", slug: "nivia-ashtang-football", brand: { id: 5, name: "Nivia", slug: "nivia", logo_url: "" }, category: { id: 3, name: "Football", slug: "football", sports: [] }, sports: [{ id: 3, name: "Football", slug: "football", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1614632537423-1e6078b0f6c1?w=400&h=400&fit=crop", min_price: 649, amazon_price: 749, in_stock: true, is_featured: true },
+  { id: 8, name: "Vector X Football Shoes Chaser", slug: "vector-x-football-shoes", brand: { id: 6, name: "Vector X", slug: "vector-x", logo_url: "" }, category: { id: 3, name: "Football", slug: "football", sports: [] }, sports: [{ id: 3, name: "Football", slug: "football", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop", min_price: 599, amazon_price: 699, in_stock: true, is_featured: false },
+
+  // ── Fitness / Strength ──
+  { id: 9, name: "Cockatoo Hex Dumbbells 5 Kg Pair", slug: "cockatoo-hex-dumbbells-5kg", brand: { id: 7, name: "Cockatoo", slug: "cockatoo", logo_url: "" }, category: { id: 4, name: "Strength", slug: "strength", sports: [] }, sports: [{ id: 4, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1586401100295-7a8096fd231a?w=400&h=400&fit=crop", min_price: 1099, amazon_price: 1199, in_stock: true, is_featured: true },
+  { id: 10, name: "PowerMax 8 Kg Cast Iron Kettlebell", slug: "powermax-kettlebell-8kg", brand: { id: 8, name: "PowerMax", slug: "powermax", logo_url: "" }, category: { id: 4, name: "Strength", slug: "strength", sports: [] }, sports: [{ id: 4, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?w=400&h=400&fit=crop", min_price: 849, amazon_price: 949, in_stock: true, is_featured: false },
+  { id: 11, name: "USI Weight Lifting Belt 6 inch", slug: "usi-weight-belt", brand: { id: 9, name: "USI", slug: "usi", logo_url: "" }, category: { id: 4, name: "Strength", slug: "strength", sports: [] }, sports: [{ id: 4, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&h=400&fit=crop", min_price: 1149, amazon_price: 1249, in_stock: true, is_featured: false },
+
+  // ── Cardio ──
+  { id: 12, name: "PowerMax BS-150 Spin Bike", slug: "powermax-spin-bike", brand: { id: 8, name: "PowerMax", slug: "powermax", logo_url: "" }, category: { id: 5, name: "Cardio", slug: "cardio", sports: [] }, sports: [{ id: 4, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1591291621164-2c6367723315?w=400&h=400&fit=crop", min_price: 12499, amazon_price: 12999, in_stock: true, is_featured: false },
+  { id: 13, name: "Cockatoo Foldable Treadmill CT-01", slug: "cockatoo-treadmill-ct01", brand: { id: 7, name: "Cockatoo", slug: "cockatoo", logo_url: "" }, category: { id: 5, name: "Cardio", slug: "cardio", sports: [] }, sports: [{ id: 4, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=400&h=400&fit=crop", min_price: 21999, amazon_price: 22499, in_stock: true, is_featured: false },
+
+  // ── Boxing / MMA ──
+  { id: 14, name: "USI Immortal Boxing Gloves 12oz", slug: "usi-boxing-gloves-12oz", brand: { id: 9, name: "USI", slug: "usi", logo_url: "" }, category: { id: 6, name: "Boxing", slug: "boxing", sports: [] }, sports: [{ id: 5, name: "Boxing / MMA", slug: "boxing-mma", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1509255929945-586a420363cf?w=400&h=400&fit=crop", min_price: 1099, amazon_price: 1199, in_stock: true, is_featured: true },
+  { id: 15, name: "Xpeed Boxing Hand Wraps 180 inch", slug: "xpeed-hand-wraps", brand: { id: 10, name: "Xpeed", slug: "xpeed", logo_url: "" }, category: { id: 6, name: "Boxing", slug: "boxing", sports: [] }, sports: [{ id: 5, name: "Boxing / MMA", slug: "boxing-mma", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=400&h=400&fit=crop", min_price: 249, amazon_price: 329, in_stock: true, is_featured: false },
+
+  // ── CrossFit ──
+  { id: 16, name: "Xpeed Battle Rope 30ft", slug: "xpeed-battle-rope-30ft", brand: { id: 10, name: "Xpeed", slug: "xpeed", logo_url: "" }, category: { id: 7, name: "CrossFit", slug: "crossfit", sports: [] }, sports: [{ id: 4, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=400&h=400&fit=crop", min_price: 2299, amazon_price: 2399, in_stock: true, is_featured: false },
+  { id: 17, name: "Cosco Medicine Ball 5 Kg", slug: "cosco-medicine-ball-5kg", brand: { id: 11, name: "Cosco", slug: "cosco", logo_url: "" }, category: { id: 7, name: "CrossFit", slug: "crossfit", sports: [] }, sports: [{ id: 4, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=400&fit=crop", min_price: 1349, amazon_price: 1449, in_stock: true, is_featured: false },
+
+  // ── Accessories ──
+  { id: 18, name: "Xpeed Gym Gloves with Wrist Support", slug: "xpeed-gym-gloves", brand: { id: 10, name: "Xpeed", slug: "xpeed", logo_url: "" }, category: { id: 8, name: "Accessories", slug: "accessories", sports: [] }, sports: [{ id: 4, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&h=400&fit=crop&crop=top", min_price: 449, amazon_price: 549, in_stock: true, is_featured: false },
+  { id: 19, name: "PowerMax Resistance Bands Set (5 pcs)", slug: "powermax-resistance-bands", brand: { id: 8, name: "PowerMax", slug: "powermax", logo_url: "" }, category: { id: 8, name: "Accessories", slug: "accessories", sports: [] }, sports: [{ id: 4, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1598289431512-b97b0917affc?w=400&h=400&fit=crop", min_price: 399, amazon_price: 499, in_stock: true, is_featured: false },
+  { id: 20, name: "Tynor Knee Cap Pair", slug: "tynor-knee-cap-pair", brand: { id: 12, name: "Tynor", slug: "tynor", logo_url: "" }, category: { id: 8, name: "Accessories", slug: "accessories", sports: [] }, sports: [{ id: 4, name: "Gym Fitness", slug: "gym-fitness", icon_url: "" }], thumbnail_url: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=400&fit=crop", min_price: 299, amazon_price: 399, in_stock: true, is_featured: false },
 ];
+
 
 // API Functions
 export const api = {

@@ -110,7 +110,7 @@ export default function Home() {
                 className="group relative bg-card border border-border overflow-hidden flex flex-col"
               >
                 <div className="aspect-square bg-white relative overflow-hidden flex items-center justify-center p-4">
-                  <div className="absolute top-2 left-2 bg-primary text-black font-bold text-[10px] uppercase px-2 py-1 z-10">
+                  <div className="absolute top-2 left-2 bg-primary text-white font-bold text-[10px] uppercase px-2 py-1 z-10">
                     Featured
                   </div>
                   <img 
@@ -130,7 +130,7 @@ export default function Home() {
                     {product.min_price && (
                       <div className="flex flex-col mb-4">
                         <span className="text-sm text-foreground/50 line-through font-mono">
-                          Amazon: ₹{Math.round(product.min_price * 1.15).toLocaleString()}
+                          Amazon: ₹{(product.amazon_price || Math.round(product.min_price * 1.15)).toLocaleString()}
                         </span>
                         <div className="flex items-center gap-2">
                           <span className="text-xl font-bold font-mono">
@@ -144,7 +144,7 @@ export default function Home() {
                     )}
                     <a 
                       href="tel:9769587317"
-                      className="w-full h-12 bg-background border border-border flex items-center justify-center gap-2 hover:bg-primary hover:text-black hover:border-primary transition-all rounded-none font-bold uppercase text-sm group/btn"
+                      className="w-full h-12 bg-background border border-border flex items-center justify-center gap-2 hover:bg-primary hover:text-white hover:border-primary transition-all rounded-none font-bold uppercase text-sm group/btn"
                     >
                       Call To Order
                     </a>

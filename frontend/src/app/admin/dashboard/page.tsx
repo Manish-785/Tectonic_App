@@ -180,7 +180,7 @@ export default function AdminDashboardPage() {
           <Link href="/catalogue" className="border border-border px-4 py-3 text-sm font-bold uppercase tracking-wider hover:bg-card">
             View Storefront
           </Link>
-          <a href="http://127.0.0.1:8000/admin/" className="border border-primary bg-primary px-4 py-3 text-sm font-bold uppercase tracking-wider text-black">
+          <a href="http://127.0.0.1:8000/admin/" className="border border-primary bg-primary px-4 py-3 text-sm font-bold uppercase tracking-wider text-white">
             Django Admin
           </a>
         </div>
@@ -208,7 +208,7 @@ export default function AdminDashboardPage() {
           </div>
           <textarea value={store.call_to_order_instructions} onChange={(e) => setStore({ ...store, call_to_order_instructions: e.target.value })} placeholder="Call to order instructions" className="mt-4 min-h-24 w-full border border-border bg-background p-3" />
           <textarea value={store.opening_hours} onChange={(e) => setStore({ ...store, opening_hours: e.target.value })} placeholder="Opening hours" className="mt-4 min-h-20 w-full border border-border bg-background p-3" />
-          <button className="mt-4 border border-primary bg-primary px-5 py-3 font-bold uppercase tracking-wider text-black">Save Store Info</button>
+          <button className="mt-4 border border-primary bg-primary px-5 py-3 font-bold uppercase tracking-wider text-white">Save Store Info</button>
         </form>
 
         <div className="grid gap-6">
@@ -217,7 +217,7 @@ export default function AdminDashboardPage() {
             <div className="grid gap-3 md:grid-cols-[1fr_1fr_auto]">
               <input value={sportForm.name || ""} onChange={(e) => setSportForm({ ...sportForm, name: e.target.value })} placeholder="Sport name" className="border border-border bg-background p-3" />
               <input value={sportForm.icon_url || ""} onChange={(e) => setSportForm({ ...sportForm, icon_url: e.target.value })} placeholder="Icon URL" className="border border-border bg-background p-3" />
-              <button className="border border-primary bg-primary px-4 py-3 font-bold uppercase tracking-wider text-black">Add</button>
+              <button className="border border-primary bg-primary px-4 py-3 font-bold uppercase tracking-wider text-white">Add</button>
             </div>
             <p className="mt-3 text-sm text-foreground/60">{sports.length} sports available</p>
           </form>
@@ -227,7 +227,7 @@ export default function AdminDashboardPage() {
             <div className="grid gap-3 md:grid-cols-[1fr_1fr_auto]">
               <input value={brandForm.name || ""} onChange={(e) => setBrandForm({ ...brandForm, name: e.target.value })} placeholder="Brand name" className="border border-border bg-background p-3" />
               <input value={brandForm.logo_url || ""} onChange={(e) => setBrandForm({ ...brandForm, logo_url: e.target.value })} placeholder="Logo URL" className="border border-border bg-background p-3" />
-              <button className="border border-primary bg-primary px-4 py-3 font-bold uppercase tracking-wider text-black">Add</button>
+              <button className="border border-primary bg-primary px-4 py-3 font-bold uppercase tracking-wider text-white">Add</button>
             </div>
             <p className="mt-3 text-sm text-foreground/60">{brands.length} brands available</p>
           </form>
@@ -247,7 +247,7 @@ export default function AdminDashboardPage() {
                 </label>
               ))}
             </div>
-            <button className="border border-primary bg-primary px-4 py-3 font-bold uppercase tracking-wider text-black">Add Category</button>
+            <button className="border border-primary bg-primary px-4 py-3 font-bold uppercase tracking-wider text-white">Add Category</button>
           </form>
         </div>
       </div>
@@ -323,7 +323,7 @@ export default function AdminDashboardPage() {
             </label>
           </div>
 
-          <button className="mt-5 border border-primary bg-primary px-5 py-3 font-bold uppercase tracking-wider text-black">
+          <button className="mt-5 border border-primary bg-primary px-5 py-3 font-bold uppercase tracking-wider text-white">
             {editingProductId === null ? "Create Product" : "Update Product"}
           </button>
         </form>

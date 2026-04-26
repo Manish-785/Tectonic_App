@@ -23,7 +23,7 @@ export function ClientHeader() {
         <div className="flex items-center gap-4">
           <a
             href="tel:9769587317"
-            className="hidden md:inline-flex items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary px-5 py-2.5 font-display text-sm font-bold uppercase tracking-[0.14em] text-primary-foreground hover:bg-[#ff7248] transition-colors"
+            className="hidden md:inline-flex items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary px-5 py-2.5 font-display text-sm font-bold uppercase tracking-[0.14em] text-primary-foreground hover:bg-[#ff2244] transition-colors"
           >
             <PhoneCall className="h-4 w-4" />
             Call: 97695 87317

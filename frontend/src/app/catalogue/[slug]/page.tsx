@@ -100,7 +100,7 @@ export default function ProductDetailPage() {
             {parseFloat(mrp) > parseFloat(price) || parseFloat(price) > 0 ? (
               <>
                 <div className="text-foreground/50 line-through font-mono text-xl mb-1">
-                  Amazon Price: ₹{Math.round(parseFloat(price) * 1.15).toLocaleString()}
+                  Amazon Price: ₹{(product.amazon_price || Math.round(parseFloat(price) * 1.15)).toLocaleString()}
                 </div>
                 <div className="flex items-end gap-4">
                   <span className="text-4xl font-mono font-bold">₹{price}</span>
