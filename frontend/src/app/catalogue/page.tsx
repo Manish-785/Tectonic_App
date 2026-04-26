@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
 import { api, ProductList, ProductQueryParams, MOCK_PRODUCTS } from "@/lib/api";
 import Link from "next/link";
 import { Dumbbell, PhoneCall, Search, X, ChevronRight } from "lucide-react";
@@ -19,7 +19,7 @@ const CATEGORIES = [
   { label: "Accessories", slug: "accessories" },
 ];
 
-export default function CataloguePage() {
+function CatalogueContent() {
   const [products, setProducts] = useState<ProductList[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("");
@@ -276,5 +276,20 @@ export default function CataloguePage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function CataloguePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center py-24 text-primary">
+          <Dumbbell className="h-16 w-16 animate-pulse mb-4" />
+          <p className="font-display uppercase tracking-widest font-bold text-sm">Loading Arsenal...</p>
+        </div>
+      </div>
+    }>
+      <CatalogueContent />
+    </Suspense>
   );
 }
